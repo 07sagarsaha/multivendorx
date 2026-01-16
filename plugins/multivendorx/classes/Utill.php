@@ -88,6 +88,7 @@ class Utill
         'under-review'                  => 'multivendorx_under_review_settings',
         'suspended'                     => 'multivendorx_suspended_settings',
         'ai-automation'                 => 'multivendorx_ai_automation_settings',
+        'live-chat'                     => 'multivendorx_live_chat_settings',
         'log'                           => 'multivendorx_log_settings',
         'min-max'                       => 'multivendorx_min_max_settings',
         'delivery'                      => 'multivendorx_delivery_settings',
