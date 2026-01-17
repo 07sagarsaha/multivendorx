@@ -1589,6 +1589,7 @@ const AddProduct = () => {
 							'product_shipping',
 							null,
 							product,
+							setProduct,
 							handleChange
 						)}
 

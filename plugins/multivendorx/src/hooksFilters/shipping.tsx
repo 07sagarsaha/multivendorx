@@ -4,7 +4,7 @@ import { addFilter, applyFilters } from '@wordpress/hooks';
 import { BasicInput, Card, FormGroup, FormGroupWrapper, SelectInput, ToggleSetting } from 'zyra';
 import { __ } from '@wordpress/i18n';
 
-const ShippingCard = ({ product, handleChange }) => {
+const ShippingCard = ({ product, setProduct, handleChange }) => {
 	const [shippingClasses, setShippingClasses] = useState([]);
 	const [productType, setProductType] = useState('physical');
 
@@ -127,7 +127,7 @@ const ShippingCard = ({ product, handleChange }) => {
 						'product_downloadable',
 						null,
 						product,
-						// setProduct,
+						setProduct,
 						handleChange
 					)}
 			</FormGroupWrapper>
@@ -138,11 +138,11 @@ const ShippingCard = ({ product, handleChange }) => {
 addFilter(
 	'product_shipping',
 	'my-plugin/shipping',
-	(content, product, handleChange) => {
+	(content, product, setProduct, handleChange) => {
 		return (
 			<>
 				{content}
-				<ShippingCard product={product} handleChange={handleChange} />
+				<ShippingCard product={product} setProduct={setProduct} handleChange={handleChange} />
 			</>
 		);
 	},
