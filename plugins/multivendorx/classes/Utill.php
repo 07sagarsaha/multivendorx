@@ -145,7 +145,7 @@ class Utill
         'shipping_origin_country'        => 'shipping_origin_country',
         'category_fixed_commission'      => 'multivendorx_category_fixed_commission',
         'category_percentage_commission' => 'multivendorx_category_percentage_commission',
-
+        'facebook_page_id'               => 'facebook_page_id',
     );
 
     const POST_META_SETTINGS = array(
@@ -211,6 +211,7 @@ class Utill
         'distance_rules'             => 'distance_rules',
         'shipping_options'           => 'shipping_options',
         'distance_type'              => 'distance_type',
+        'facebook_page_id'           => 'facebook_page_id',
     );
 
     const USER_SETTINGS_KEYS = array(
