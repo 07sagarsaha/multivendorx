@@ -651,15 +651,18 @@
 // membership-features start
 .membership-features {
     .features-list {
-        padding-top: 0.313rem;
+        padding-top: 0.813rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.625rem;
 
         .feature-row {
             display: flex;
             gap: 0.5rem;
-            margin: 0.625rem 0;
-            padding: 0.5rem;
+            // padding: 0.5rem;
             // background: #efefefec;
             border-radius: 0.313rem;
+            align-items: center;
 
             .feature-number {
                 padding: 0.313rem;
@@ -676,7 +679,6 @@
         }
     }
 }
-
 // dropdown menu style (table action, icon action)  remove
 .icon-wrapper {
     position: relative;
@@ -1092,30 +1094,48 @@
     justify-content: space-between;
 
     .form-group-wrapper {
-        .form-group{
+        .form-group {
             padding: 0;
             gap: 0;
-            label{
+
+            label {
                 width: 100%;
             }
         }
     }
-    .form-group-setting-wrapper{
+
+    .form-group-setting-wrapper {
         display: flex;
         flex-direction: column;
         gap: 0.45rem;
-        label{
+
+        label {
             font-size: 1rem;
             padding-bottom: 0.625rem;
         }
     }
-    .admin-btn{
+
+    .admin-btn {
         background: transparent;
     }
-    .admin-btn:first-child{
+
+    .admin-btn:first-child {
         border-radius: 0.313rem 0 0 0.313rem;
     }
-    .admin-btn:last-child{
+
+    .admin-btn:last-child {
         border-radius: 0.313rem 0 0 0.313rem;
     }
 }
+
+// invoice styles start
+#invoice-table-wrapper {
+    #invoice-table-header,
+    #invoice-table-row {
+        padding: 0.813rem 1rem;
+    }
+}
+// invoice styles end
+
+
+

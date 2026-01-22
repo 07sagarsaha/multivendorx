@@ -1,23 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import DashboardTemplate from '../../../assets/template/Dashbord';
-import InvoiceDOM from '../../../assets/template/Invoice.dom';
-import InvoicePDF from '../../../assets/template/Invoice.pdf';
-
-import Invoice1 from '../../../assets/template/pdf/Invoice-1';
-import InvoiceHtml1 from '../../../assets/template/html/Invoice-1';
-
-import InvoicePdf2 from '../../../assets/template/pdf/Invoice-2';
-import InvoiceHtml2 from '../../../assets/template/html/Invoice-2';
-
-import InvoicePdf3 from '../../../assets/template/pdf/Invoice-3';
-import InvoiceHtml3 from '../../../assets/template/html/Invoice-3';
-
-import InvoicePdf4 from '../../../assets/template/pdf/Invoice-4';
-import InvoiceHtml4 from '../../../assets/template/html/Invoice-4';
-// import InvoicePdf4 from '../../../assets/template/pdf/Invoice-4';
-import InvoiceHtml5 from '../../../assets/template/html/Invoice-5';
-
-
+import Invoice1 from '../../../assets/template/invoicePdf/Invoice-1';
 
 export default {
 	id: 'store-invoice',
@@ -202,35 +184,7 @@ export default {
 				preview: Invoice1,
 				component: Invoice1,
 				pdf: Invoice1,
-			  },
-			  {
-				key: 'invoice_2',
-				label: 'Invoice 2',
-				preview: InvoiceHtml2,
-				component: InvoiceHtml2,
-				pdf: InvoicePdf2,
-			  }	,
-			  {
-				key: 'invoice_3',
-				label: 'Invoice 3',
-				preview: InvoiceHtml3,
-				component: InvoiceHtml3,
-				pdf: InvoicePdf3,
-			  }	,
-			  {
-				key: 'invoice_4',
-				label: 'Invoice 4',
-				preview: InvoiceHtml4,
-				component: InvoiceHtml4,
-				pdf: InvoicePdf4,
-			  }	,
-			   {
-				key: 'invoice_5',
-				label: 'Invoice 5',
-				preview: InvoiceHtml5,
-				component: InvoiceHtml5,
-				pdf: InvoicePdf4,
-			  }			  
+			  }		  
 			],
 			predefinedOptions: [
 				{

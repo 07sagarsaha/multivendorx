@@ -183,28 +183,6 @@ const Settings = ({ id }: { id: string }) => {
 				</Column>
 
 				<Column grid={4}>
-					<Card title="Webhook Configuration">
-						<FormGroupWrapper>
-							<FormGroup label={__('Primary Webhook URL', 'multivendorx')}>
-								<BasicInput
-									name="name"
-									 
-									descClass="settings-metabox-description"
-									value={formData.name}
-									onChange={handleChange}
-								/>
-							</FormGroup>
-							<FormGroup label={__('Stripe Webhook URL', 'multivendorx')}>
-								<BasicInput
-									name="name"
-									 
-									descClass="settings-metabox-description"
-									value={formData.name}
-									onChange={handleChange}
-								/>
-							</FormGroup>
-						</FormGroupWrapper>
-					</Card>
 					<Card title="Notifications">
 						<FormGroupWrapper>
 							<FormGroup label={__('Reminder Days Before Expiration', 'multivendorx')}>

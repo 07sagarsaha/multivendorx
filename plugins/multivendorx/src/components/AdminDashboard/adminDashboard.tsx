@@ -247,7 +247,7 @@ const AdminDashboard = () => {
 			title: 'Product & store tools',
 			features: [
 				{
-					name: 'Multiple vendors per product',
+					name: 'Multiple stores per product',
 					free: true,
 					pro: true,
 				},

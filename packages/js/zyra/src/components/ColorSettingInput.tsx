@@ -104,8 +104,6 @@ const ColorSettingInput: React.FC<ColorSettingProps> = (props) => {
             },
         });
     };
-
-
     const emitTemplateChange = (colors: CustomColors, key?: string) => {
         props.onChange?.({
             target: {
@@ -117,7 +115,6 @@ const ColorSettingInput: React.FC<ColorSettingProps> = (props) => {
             },
         });
     };
-
 
     // 🔹 Determine initial mode based on whether templates are provided
     const initialMode = initialPalette === 'templates'

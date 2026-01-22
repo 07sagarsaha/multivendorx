@@ -3,7 +3,7 @@ export default {
 	category: true,
 	tab: 'modules',
 	description:
-		'Manage marketplace features by enabling or disabling modules. Turning a module on activates its settings and workflows, while turning it off hides them from admin and vendors.',
+		'Manage marketplace features by enabling or disabling modules. Turning a module on activates its settings and workflows, while turning it off hides them from admin and stores.',
 	modules: [
 		{
 			type: 'separator',
@@ -302,7 +302,7 @@ export default {
 		{
 			id: 'paypal-marketplace',
 			name: __('PayPal Marketplace', 'multivendorx'),
-			desc: 'Using split payment pay vendors instantly after a completed order',
+			desc: 'Using split payment pay stores instantly after a completed order',
 			icon: 'adminfont-paypal-marketplace',
 			doc_link:
 				'https://multivendorx.com/docs/knowledgebase/paypal-marketplace-real-time-split/',
@@ -334,7 +334,7 @@ export default {
 		{
 			id: 'razorpay',
 			name: __('Razorpay', 'multivendorx'),
-			desc: 'For clients looking to pay multiple Indian vendors instantly',
+			desc: 'For clients looking to pay multiple Indian stores instantly',
 			icon: 'adminfont-razorpay',
 			doc_link: 'https://multivendorx.com/docs/knowledgebase/payment/',
 			//settings_link: admin_url('admin.php?page=mvx-setting-admin'),

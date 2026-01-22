@@ -411,13 +411,41 @@ const Membership = ({ id }: { id: string }) => {
 	});
 
 	// add membership start
+	const inputRefs = React.useRef<HTMLInputElement[]>([]);
 	const addFeature = () => {
-		setFeatures((prev) => [...prev, '']);
+		setFeatures((prev) => {
+			if (!prev[prev.length - 1].trim()) return prev;
+			return [...prev, ''];
+		});
 	};
+
 
 	const updateFeature = (index: number, value: string) => {
 		setFeatures((prev) =>
 			prev.map((f, i) => (i === index ? value : f))
+		);
+	};
+	const handleFeatureKeyDown = (
+		e: React.KeyboardEvent<HTMLInputElement>,
+		index: number
+	) => {
+		if (e.key === 'Enter') {
+			e.preventDefault();
+
+			if (!features[index].trim()) return;
+
+			setFeatures((prev) => [...prev, '']);
+
+			// focus next input after render
+			setTimeout(() => {
+				inputRefs.current[index + 1]?.focus();
+			}, 0);
+		}
+	};
+
+	const removeFeature = (index: number) => {
+		setFeatures((prev) =>
+			prev.length === 1 ? [''] : prev.filter((_, i) => i !== index)
 		);
 	};
 
@@ -824,7 +852,7 @@ const Membership = ({ id }: { id: string }) => {
 						</div>
 					)}
 					<Column grid={8}>
-						<Card
+						<Card contentHeight
 							title="Plan details"
 							action={
 								<>
@@ -924,7 +952,7 @@ const Membership = ({ id }: { id: string }) => {
 								</FormGroup>
 							</FormGroupWrapper>
 						</Card>
-						<Card contentHeight title={__('Plan Highlights', 'multivendorx')}>
+						<Card contentHeight title={__('Plan highlights', 'multivendorx')}>
 							<FormGroupWrapper>
 								<FormGroup cols={3}>
 									<FileInput
@@ -971,20 +999,29 @@ const Membership = ({ id }: { id: string }) => {
 										<div className="features-list">
 											{features.map((feature, index) => (
 												<div className="feature-row" key={index}>
-													<span className={`feature-number`}>
-														{index + 1}
-													</span>
 													<input
+														ref={(el) => {
+															if (el) inputRefs.current[index] = el;
+														}}
 														type="text"
 														className="basic-input"
 														placeholder="e.g., Unlimited access to premium content"
 														value={feature}
-														onChange={(e) =>
-															updateFeature(index, e.target.value)
-														}
+														onChange={(e) => updateFeature(index, e.target.value)}
+														onKeyDown={(e) => handleFeatureKeyDown(e, index)}
 													/>
+
+													{features.length > 1 && (
+														<div
+															className="admin-badge red"
+															onClick={() => removeFeature(index)}
+														>
+															<i className="adminfont-delete"></i>
+														</div>
+													)}
 												</div>
 											))}
+
 										</div>
 									</div>
 								</FormGroup>
@@ -1054,6 +1091,15 @@ const Membership = ({ id }: { id: string }) => {
 												postInsideText="Monthly"
 												value={formData.recurring_price}
 												onChange={handleChange}
+												postInsideText={{
+													type: 'select',
+													key: 'store_base',
+													size: '7rem',
+													options: [
+														{ 'value': 'Monthly', 'label': 'Monthly' },
+														{ 'value': 'Day', 'label': 'Day' }
+													],
+												}}
 											/>
 										</FormGroup>
 									</FormGroupWrapper>
@@ -1084,6 +1130,15 @@ const Membership = ({ id }: { id: string }) => {
 											postInsideText="Monthly"
 											value={formData.recurring_price}
 											onChange={handleChange}
+											postInsideText={{
+												type: 'select',
+												key: 'store_base',
+												size: '7rem',
+												options: [
+													{ 'value': 'Monthly', 'label': 'Monthly' },
+													{ 'value': 'Day', 'label': 'Day' }
+												],
+											}}
 										/>
 									</FormGroup>
 									<label
@@ -1091,8 +1146,8 @@ const Membership = ({ id }: { id: string }) => {
 										style={{ cursor: 'pointer' }}
 										className="field-wrapper"
 									>
-										<i className={`star-icon ${starFill ? 'adminfont-star' : 'adminfont-star-o'}`} />
 										{__('Apply tax to plan price', 'multivendorx')}
+										<i className={`star-icon ${starFill ? 'adminfont-star' : 'adminfont-star-o'}`} />
 									</label>
 									<div className="settings-metabox-note">
 										<div className="metabox-note-wrapper">
@@ -1107,7 +1162,7 @@ const Membership = ({ id }: { id: string }) => {
 							)}
 						</Card>
 						<Card
-							contentHeight title={__('Trial Period', 'multivendorx')}
+							contentHeight title={__('Trial period', 'multivendorx')}
 							desc={__('Configure optional trial period for new members', 'multivendorx')}
 							action={
 								<>
@@ -1141,17 +1196,6 @@ const Membership = ({ id }: { id: string }) => {
 							}>
 							{trialEnabled.includes('trial') && (
 								<FormGroupWrapper>
-									{/* <FormGroup label="Offer a trial period" htmlFor="trial_period">
-									<NestedComponent
-										id="trial_period"
-										fields={subscription}
-										value={rules}
-										single={true}
-										addButtonLabel="Add Rule"
-										deleteButtonLabel="Remove"
-										onChange={(val) => setRules(val)}
-									/>
-								</FormGroup> */}
 									<FormGroup cols={2} label="For a duration of" htmlFor="trial_period">
 										<BasicInput
 											name="name"
@@ -1160,35 +1204,12 @@ const Membership = ({ id }: { id: string }) => {
 											postInsideText="days"
 										/>
 									</FormGroup>
+									<FormGroup cols={2}></FormGroup>
 								</FormGroupWrapper>
 							)}
-							{/* <div className="card-header">
-								<div className="left">
-									<div className="title">
-										After Expiry
-									</div>
-									<div className="des">Define what happens when subscription expires</div>
-								</div>
-							</div> */}
-							{/* <FormGroupWrapper>
-								<FormGroup
-									label="Offer grace period"
-									htmlFor="grace_period"
-								>
-									<NestedComponent
-										id="grace_period"
-										fields={gracePeriod}
-										value={rules}
-										single={true}
-										addButtonLabel="Add Rule"
-										deleteButtonLabel="Remove"
-										onChange={(val) => setRules(val)}
-									/>
-								</FormGroup>
-							</FormGroupWrapper> */}
 						</Card>
 						<Card
-							contentHeight title={__('After Expiry', 'multivendorx')}
+							contentHeight title={__('After expiry', 'multivendorx')}
 							desc={__('Define what happens when subscription expires', 'multivendorx')}
 							action={
 								<>
@@ -1287,7 +1308,7 @@ const Membership = ({ id }: { id: string }) => {
 								</>
 							)}
 						</Card>
-						<Card contentHeight title={__('Commission type', 'multivendorx')}>
+						<Card contentHeight title={__('What this plan includes', 'multivendorx')}>
 							<FormGroupWrapper>
 								<FormGroup
 									label="Include All Add-ons"
@@ -1308,13 +1329,13 @@ const Membership = ({ id }: { id: string }) => {
 					</Column>
 					<Column>
 						<Section
-						 wrapperClass='divider-wrapper'
+							wrapperClass='divider-wrapper'
 							hint={__('Commission type', 'multivendorx')}
 						// hint={ inputField.hint } 
 						/>
 					</Column>
 					<Column grid={8}>
-						<Card title={__('Usage Limits', 'multivendorx')}
+						<Card title={__('Usage limits', 'multivendorx')}
 						// desc={'Select which premium features stores can access with this plan.'}
 						>
 							<FormGroupWrapper>
@@ -1649,7 +1670,7 @@ const Membership = ({ id }: { id: string }) => {
 						</Card>
 					</Column>
 					<Column grid={4}>
-						<Card contentHeight title={__('Membership Perks', 'multivendorx')}>
+						<Card contentHeight title={__('Membership perks', 'multivendorx')}>
 							<FormGroupWrapper>
 								<FormGroup cols={2} label="Products" htmlFor="trial_period">
 									<BasicInput
@@ -1701,6 +1722,47 @@ const Membership = ({ id }: { id: string }) => {
 									/>
 								</FormGroup>
 								<FormGroup cols={2}></FormGroup>
+							</FormGroupWrapper>
+						</Card>
+						<Card contentHeight title={__('Usage Limits', 'multivendorx')}
+						// desc={'Select which premium features stores can access with this plan.'}
+						>
+							<FormGroupWrapper>
+								<FormGroup label="When limit reached" htmlFor="trial_period">
+									<MultiCheckBox
+										wrapperClass="checkbox-list-side-by-side"
+										// description={whenLimitReached.desc}
+										inputWrapperClass="toggle-checkbox-header"
+										inputInnerWrapperClass="default-checkbox"
+										inputClass={whenLimitReached.class}
+										idPrefix={whenLimitReached.key}
+										selectDeselect
+										options={whenLimitReached.options}
+										value={normalizeValue(whenLimitReached.key)}
+										onChange={handleMultiCheckboxChange(whenLimitReached.key)}
+										onMultiSelectDeselectChange={() =>
+											handleSelectDeselect(whenLimitReached)
+										}
+										proSetting={false}
+										moduleChange={() => { }}
+										modules={[]}
+									/>
+								</FormGroup>
+							</FormGroupWrapper>
+						</Card>
+						<Card contentHeight title={__('Additional resource pricing', 'multivendorx')} desc={__('Define the cost per unit when stores want to add more resources beyond their limits', 'multivendorx')}
+						// desc={'Select which premium features stores can access with this plan.'}
+						>
+							<FormGroupWrapper>
+								<FormGroup cols={2} label="Additional Products" htmlFor="trial_period">
+									<BasicInput
+										name="name"
+										value={formData.name}
+										onChange={handleChange}
+										preInsideText="$"
+									/>
+								</FormGroup>
+								<FormGroup cols={2} ></FormGroup>
 							</FormGroupWrapper>
 						</Card>
 						<Card contentHeight title={__('AI tools available to stores', 'multivendorx')}
