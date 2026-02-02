@@ -1,12 +1,6 @@
 import { useEffect, useState } from 'react';
-import axios from 'axios';
 import {
-	BasicInput,
-	TextArea,
-	FileInput,
-	SelectInput,
 	useModules,
-	getApiLink,
 	Tabs,
 } from 'zyra';
 import GeneralSettings from './settings/general';
@@ -18,7 +12,6 @@ import Withdrawl from './settings/withdrawl';
 import Privacy from './settings/Privacy';
 import Verification from './settings/Verification';
 import ShippingDelivery from './settings/ShippingDelivery';
-import LiveChat from './settings/LiveChat';
 import { applyFilters } from '@wordpress/hooks';
 
 const settings = () => {
